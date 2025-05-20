@@ -13,8 +13,12 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - name: Log in to Docker Hub
+      run: echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
+
     - name: Build Docker image
       run: docker build -t myusername/myimage:latest .
 
     - name: Push Docker image
       run: docker push myusername/myimage:latest
+
